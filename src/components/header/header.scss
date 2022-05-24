@@ -1,0 +1,19 @@
+.header {
+  font-size: 40px;
+  display: flex;
+  &__logo {
+    line-height: 80px;
+    font-weight: 900;
+  }
+  &__currencies {
+    display: flex;
+    margin-left: auto;
+    height: 100px;
+    &-item {
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 40px;
+      margin-left: 50px;
+    }
+  }
+}
