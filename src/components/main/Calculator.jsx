@@ -1,35 +1,47 @@
 import React, { useState } from 'react';
 import './calculator.scss';
 import CurrencyInput from './CurrencyInput.jsx';
+
 const Calculator = ({ currencies }) => {
   const [amountFrom, setAmountFrom] = useState(1);
   const [amountTo, setAmountTo] = useState(1);
-  const [currencyFrom, setCurrencyFrom] = useState('');
-  const [currencyTo, setCurrencyTo] = useState('');
+  const [currencyFrom, setCurrencyFrom] = useState('USD');
+  const [currencyTo, setCurrencyTo] = useState('USD');
 
-  const arr = currencies.reduce((acc, item) => {
+  const convertingData = currencies.reduce((acc, item) => {
     acc['UAH'] = '1';
     acc[Object.values(item.ccy).join('')] = item.sale;
     return acc;
   }, []);
 
-  console.log(arr);
   const handleAmountFromChange = (amountFrom) => {
-    setAmountTo((amountFrom * arr[currencyTo]) / arr[currencyFrom]);
+    setAmountTo(
+      (amountFrom * convertingData[currencyTo]) / convertingData[currencyFrom]
+    );
     setAmountFrom(amountFrom);
   };
+
   const handleCurrencyFromChange = (currencyFrom) => {
-    setAmountFrom((amountFrom * arr[currencyTo]) / arr[currencyFrom]);
+    setAmountFrom(
+      (amountFrom * convertingData[currencyTo]) / convertingData[currencyFrom]
+    );
     setCurrencyFrom(currencyFrom);
   };
+
   const handleAmountToChange = (amountTo) => {
-    setAmountFrom((amountTo * arr[currencyFrom]) / arr[currencyTo]);
+    setAmountFrom(
+      (amountTo * convertingData[currencyFrom]) / convertingData[currencyTo]
+    );
     setAmountTo(amountTo);
   };
+
   const handleCurrencyToChange = (currencyTo) => {
-    setAmountFrom((amountTo * arr[currencyFrom]) / arr[currencyTo]);
+    setAmountFrom(
+      (amountTo * convertingData[currencyFrom]) / convertingData[currencyTo]
+    );
     setCurrencyTo(currencyTo);
   };
+
   return (
     <div className="calculator">
       <h2 className="calculator__title">
@@ -38,7 +50,7 @@ const Calculator = ({ currencies }) => {
       <form className="calculator__form">
         <CurrencyInput
           amount={amountFrom}
-          currencies={Object.keys(arr)}
+          currencies={Object.keys(convertingData)}
           currency={currencyFrom}
           onAmountChange={handleAmountFromChange}
           onCurrencyChange={handleCurrencyFromChange}
@@ -46,7 +58,7 @@ const Calculator = ({ currencies }) => {
         <CurrencyInput
           amount={amountTo}
           currency={currencyTo}
-          currencies={Object.keys(arr)}
+          currencies={Object.keys(convertingData)}
           onAmountChange={handleAmountToChange}
           onCurrencyChange={handleCurrencyToChange}
         />
