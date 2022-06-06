@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './calculator.scss';
+import { useLocation } from 'react-router-dom';
+
 import CurrencyInput from './CurrencyInput.jsx';
 
 const Calculator = ({ currencies }) => {
@@ -7,7 +9,6 @@ const Calculator = ({ currencies }) => {
   const [amountTo, setAmountTo] = useState(1);
   const [currencyFrom, setCurrencyFrom] = useState('USD');
   const [currencyTo, setCurrencyTo] = useState('USD');
-
   const convertingData = currencies.reduce((acc, item) => {
     acc['UAH'] = '1';
     acc[Object.values(item.ccy).join('')] = item.sale;
@@ -41,7 +42,7 @@ const Calculator = ({ currencies }) => {
     );
     setCurrencyTo(currencyTo);
   };
-
+  const data = Object.keys(convertingData).filter((item) => item != 'BTC');
   return (
     <div className="calculator">
       <h2 className="calculator__title">
@@ -50,7 +51,7 @@ const Calculator = ({ currencies }) => {
       <form className="calculator__form">
         <CurrencyInput
           amount={amountFrom}
-          currencies={Object.keys(convertingData)}
+          currencies={data}
           currency={currencyFrom}
           onAmountChange={handleAmountFromChange}
           onCurrencyChange={handleCurrencyFromChange}
@@ -58,7 +59,7 @@ const Calculator = ({ currencies }) => {
         <CurrencyInput
           amount={amountTo}
           currency={currencyTo}
-          currencies={Object.keys(convertingData)}
+          currencies={data}
           onAmountChange={handleAmountToChange}
           onCurrencyChange={handleCurrencyToChange}
         />

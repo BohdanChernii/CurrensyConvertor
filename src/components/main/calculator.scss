@@ -10,10 +10,11 @@
     margin-top: 50px;
     &-item {
       display: flex;
-      width: 50%;
       height: 100px;
       .value {
         font-size: 28px;
+        margin: 20px;
+        outline: none;
       }
       .currency {
         border: none;
