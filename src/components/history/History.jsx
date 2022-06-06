@@ -5,7 +5,7 @@ const History = () => {
     <article className="history">
       <h2 className="history__title">Історія гривні</h2>
       <div className="history__content">
-        <div className="history__left">
+        <div className="history__left item">
           <h3 className="history__left-title title">
             Історія національної валюти України
           </h3>
@@ -119,7 +119,7 @@ const History = () => {
             style={{ width: '620px', height: '320px' }}
           />
         </div>
-        <div className="history__right">
+        <div className="history__right item">
           <p className="history__right-text text">
             Гетьман Павло Скоропадський, прийшовши до влади у квітні 1918 року,
             відновив як основну грошову одиницю Української Держави карбованець,
